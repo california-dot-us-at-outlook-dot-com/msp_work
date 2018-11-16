@@ -27,7 +27,7 @@ void wc_1602(unsigned char data){
 }
 
 void init_1602(void){
-    P5DIR |= (BIT5+BIT6+BIT7+BIT0+BIT1);
+    P5DIR |= (BIT5+BIT6+BIT7);
     P4DIR |=0xff;
     wc_1602(0x38);
     delay_ms(5);

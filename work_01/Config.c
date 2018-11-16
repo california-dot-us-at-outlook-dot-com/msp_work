@@ -15,7 +15,7 @@ void Clock_Init()
 {
   unsigned char i;
   BCSCTL1&=~XT2OFF;                 //打开XT2振荡器
-  BCSCTL2|=SELM1+SELS;              //MCLK为8MHZ，SMCLK为8MHZ
+  BCSCTL2|=SELM1+SELS+DIVS_3;              //MCLK为8MHZ，SMCLK为8MHZ
   do{
     IFG1&=~OFIFG;                   //清楚振荡器错误标志
     for(i=0;i<100;i++)

@@ -11,6 +11,7 @@ GEN_CMDS__FLAG :=
 
 ORDERED_OBJS += \
 "./Config.obj" \
+"./inf.obj" \
 "./interrupt.obj" \
 "./lcd1602.obj" \
 "./main.obj" \
@@ -157,8 +158,8 @@ work_01.txt: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "Config.obj" "interrupt.obj" "lcd1602.obj" "main.obj" 
-	-$(RM) "Config.d" "interrupt.d" "lcd1602.d" "main.d" 
+	-$(RM) "Config.obj" "inf.obj" "interrupt.obj" "lcd1602.obj" "main.obj" 
+	-$(RM) "Config.d" "inf.d" "interrupt.d" "lcd1602.d" "main.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
