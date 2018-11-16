@@ -58,26 +58,26 @@ unsigned int  ltx,lty;            //根据采集到的参数转换为TFT上的实际坐标值
 unsigned int LCD_X,LCD_Y;
 
 /*触摸按钮等状态标志位*/
-unsigned char   Button_Flag=0;          //按键按下标志
+unsigned char   Button_Flag;          //按键按下标志
 
-unsigned char   Button_11=0;                    //第一行第一列按钮
-unsigned char   Button_12=0;
-unsigned char   Button_13=0;
+unsigned char   Button_11;                    //第一行第一列按钮
+unsigned char   Button_12;
+unsigned char   Button_13;
 
-unsigned char   Button_21=0;                //第二行第一列按钮
-unsigned char   Button_22=0;
-unsigned char   Button_23=0;
+unsigned char   Button_21;                //第二行第一列按钮
+unsigned char   Button_22;
+unsigned char   Button_23;
 
-unsigned char   Button_31=0;                //第三行第一列按钮
-unsigned char   Button_32=0;
-unsigned char   Button_33=0;
+unsigned char   Button_31;                //第三行第一列按钮
+unsigned char   Button_32;
+unsigned char   Button_33;
 
-unsigned char   Button_41=0;                    //第四行第一列按钮
-unsigned char   Button_42=0;
-unsigned char   Button_43=0;
+unsigned char   Button_41;                    //第四行第一列按钮
+unsigned char   Button_42;
+unsigned char   Button_43;
 
-unsigned char   Button_Back=0;                  //退格按钮
-unsigned char   Button_Clear=0;                 //清除按钮
+unsigned char   Button_Back;                  //退格按钮
+unsigned char   Button_Clear;                 //清除按钮
 
 
 

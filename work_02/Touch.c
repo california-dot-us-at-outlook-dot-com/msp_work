@@ -140,6 +140,8 @@ unsigned char Getpix() //取采样值，此处使用软件滤波，2次取样的值相差太大的视为噪
                     ltx=(unsigned int)(240.0*(coordinate.x-Xmin)/(Xmax-Xmin));       //坐标转换，即根据采样值计算实际坐标值
                     lty=(unsigned int)(320.0*(coordinate.y-Ymin)/(Ymax-Ymin));   //Xmin、max和Ymin、Ymax分别是触摸屏横纵坐标的最小/最大值
                     flag=1;
+                    LCD_X=ltx;
+                    LCD_Y=lty;
                    }
                 }
         }
