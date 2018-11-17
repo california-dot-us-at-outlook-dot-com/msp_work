@@ -3,6 +3,7 @@
 #include"Touch.h"
 #include"TFT.h"
 #include"GUI.h"
+#include"Tuoluoyi.h"
 /**
  * main.c
  */
@@ -12,6 +13,7 @@
     unsigned char curX=0;
     unsigned char ifPaused=1;
     unsigned char tmpNum=0;
+    unsigned char ready=0;
 
 
 unsigned long pow10(unsigned char pow){
@@ -21,6 +23,10 @@ unsigned long pow10(unsigned char pow){
         result*=10;
     }
     return result;
+}
+
+void DistanceMatch(){
+    P6OUT=~P6OUT;
 }
 
 void findNum(){
@@ -74,7 +80,7 @@ void findNum(){
             displayNums(10+curX*10,30,16);
         }
         curX=0;
-    }else if(Button_43){//V
+    }else if(Button_43 && (!ready)){//V
         tmpNum=11;
         Button_43=0;
         ifPaused=0;
@@ -83,13 +89,29 @@ void findNum(){
             Distance+=pausedNums[curX]*pow10(tmpCurX-curX);
         }
         P6OUT=Distance;
+
+
+        ready=1;
+//        Distance=0;
+    }else if(Button_43 && ready){//V
+        DistanceMatch();
+        Button_43=0;
+        ready=0;
         Distance=0;
+        ifPaused=0;
+        for(curX=0;curX<16;curX++){
+            displayNums(10+curX*10,30,16);
+        }
+        curX=0;
     }else{
+
         tmpNum=0;
         ifPaused=0;
     }
 
 }
+
+
 
 int main(void)
 {
@@ -101,6 +123,8 @@ int main(void)
 
 	Clock_Init();
 
+	UART_Init();                        //串口设置初始化
+	_EINT();
 	start_7843();//触摸屏
 	TFT_Initial();//TFT初始化
 	DisplayDesk();
@@ -113,6 +137,8 @@ int main(void)
 	        pausedNums[curX]=tmpNum;
 
 	    }
+
+	    DecodeIMUData();           //数据转换
 	}
 	return 0;
 }

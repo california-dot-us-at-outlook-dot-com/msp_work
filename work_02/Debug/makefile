@@ -13,6 +13,7 @@ ORDERED_OBJS += \
 "./GUI.obj" \
 "./TFT.obj" \
 "./Touch.obj" \
+"./Tuoluoyi.obj" \
 "./main.obj" \
 "./timeConfig.obj" \
 "../lnk_msp430f169.cmd" \
@@ -158,8 +159,8 @@ work_02.txt: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "GUI.obj" "TFT.obj" "Touch.obj" "main.obj" "timeConfig.obj" 
-	-$(RM) "GUI.d" "TFT.d" "Touch.d" "main.d" "timeConfig.d" 
+	-$(RM) "GUI.obj" "TFT.obj" "Touch.obj" "Tuoluoyi.obj" "main.obj" "timeConfig.obj" 
+	-$(RM) "GUI.d" "TFT.d" "Touch.d" "Tuoluoyi.d" "main.d" "timeConfig.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
