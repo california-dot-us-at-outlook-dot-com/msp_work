@@ -13,6 +13,7 @@ C_SRCS += \
 ../TFT.c \
 ../Touch.c \
 ../Tuoluoyi.c \
+../interrupt.c \
 ../main.c \
 ../timeConfig.c 
 
@@ -21,6 +22,7 @@ C_DEPS += \
 ./TFT.d \
 ./Touch.d \
 ./Tuoluoyi.d \
+./interrupt.d \
 ./main.d \
 ./timeConfig.d 
 
@@ -29,6 +31,7 @@ OBJS += \
 ./TFT.obj \
 ./Touch.obj \
 ./Tuoluoyi.obj \
+./interrupt.obj \
 ./main.obj \
 ./timeConfig.obj 
 
@@ -37,6 +40,7 @@ OBJS__QUOTED += \
 "TFT.obj" \
 "Touch.obj" \
 "Tuoluoyi.obj" \
+"interrupt.obj" \
 "main.obj" \
 "timeConfig.obj" 
 
@@ -45,6 +49,7 @@ C_DEPS__QUOTED += \
 "TFT.d" \
 "Touch.d" \
 "Tuoluoyi.d" \
+"interrupt.d" \
 "main.d" \
 "timeConfig.d" 
 
@@ -53,6 +58,7 @@ C_SRCS__QUOTED += \
 "../TFT.c" \
 "../Touch.c" \
 "../Tuoluoyi.c" \
+"../interrupt.c" \
 "../main.c" \
 "../timeConfig.c" 
 

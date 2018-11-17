@@ -13,6 +13,8 @@ main.obj: ../TFT.h
 main.obj: ../timeConfig.h
 main.obj: ../GUI.h
 main.obj: ../Tuoluoyi.h
+main.obj: ../interrupt.h
+main.obj: ../timeConfig.h
 
 ../main.c: 
 C:/ti/ccsv8/ccs_base/msp430/include/msp430.h: 
@@ -27,3 +29,5 @@ C:/ti/ccsv8/tools/compiler/ti-cgt-msp430_18.1.2.LTS/include/intrinsics_legacy_un
 ../timeConfig.h: 
 ../GUI.h: 
 ../Tuoluoyi.h: 
+../interrupt.h: 
+../timeConfig.h: 

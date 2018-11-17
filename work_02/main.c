@@ -4,6 +4,13 @@
 #include"TFT.h"
 #include"GUI.h"
 #include"Tuoluoyi.h"
+#include"interrupt.h"
+
+#pragma vector = PORT1_VECTOR
+__interrupt void Port1_ISR(void){
+    P6OUT=~P6OUT;
+    P1IFG &= 0;
+}
 /**
  * main.c
  */
@@ -27,6 +34,9 @@ unsigned long pow10(unsigned char pow){
 
 void DistanceMatch(){
     P6OUT=~P6OUT;
+    P2OUT |= BIT0;
+    delay_ms(100);
+    P2OUT &=(~BIT0);
 }
 
 void findNum(){
@@ -124,6 +134,7 @@ int main(void)
 	Clock_Init();
 
 	UART_Init();                        //串口设置初始化
+	interrupt_init(1,0b00000011,0b00000011);//P1.0  P1.1  下降沿
 	_EINT();
 	start_7843();//触摸屏
 	TFT_Initial();//TFT初始化
