@@ -53,6 +53,7 @@ unsigned int Read_7843();                     //SPI 读数据
 struct struct1 AD7843() ;
 unsigned char pix_filter(struct struct1 pix1,struct struct1 pix2);
 unsigned char Getpix();
+void Detect_TP(void);
 
 unsigned int  ltx,lty;            //根据采集到的参数转换为TFT上的实际坐标值
 unsigned int LCD_X,LCD_Y;

@@ -12,7 +12,7 @@
 
 */
 
-#include "math.h"
+#include <math.h>
 #include "GUI.h"
 //void LCD_SetPos(unsigned int x0,unsigned int x1,unsigned int y0,unsigned int y1);
 //void  Write_Data_U16(unsigned int y);
@@ -22,6 +22,7 @@
 //  输入参数： x，y 需要画点坐标
 //            color 点的颜色
 ****************************************************************************************************/
+
 void GUIpoint(unsigned int x,unsigned int y,unsigned int color)
 {
 	LCD_SetPos(x,x,y,y);												//横屏这里要进行坐标变换，如果是竖屏，则直接是x0,x1,y0,y1做参数
@@ -33,6 +34,8 @@ void GUIpoint(unsigned int x,unsigned int y,unsigned int color)
 //         大屏GUI画线函数，（x0,y0）为起始坐标,（x1,y1）为终点坐标
 //		   line_color 线的颜色
 //***********************************************************************
+
+
 
 void GUIline(unsigned int x0,unsigned int y0,unsigned int x1,unsigned int y1,unsigned int line_color)   //画线函数
 {
@@ -52,7 +55,7 @@ void GUIline(unsigned int x0,unsigned int y0,unsigned int x1,unsigned int y1,uns
     else 
         s2 =- 1; 
    
-    Dx = abs(x1-x0);             	//计算横、纵标志增加值的绝对值 
+    Dx = abs(x1-x0);             	//计算横、纵标志增加值的绝对值
     Dy = abs(y1-y0); 
         
     if(Dy > Dx)                               
@@ -256,16 +259,6 @@ void GUIcircle(unsigned int xc,unsigned int yc,unsigned int r,unsigned int circl
 }
 
 
-//颜色代码，TFT显示用
-#define White          0xFFFF                                                               //显示颜色代码
-#define Black          0x0000
-#define Blue           0x001F
-#define Blue2          0x051F
-#define Red            0xF800
-#define Magenta        0xF81F
-#define Green          0x07E0
-#define Cyan           0x7FFF
-#define Yellow         0xFFE0
 
 
 void CLR_Screen(unsigned int bColor)
@@ -278,6 +271,7 @@ void CLR_Screen(unsigned int bColor)
            Write_Data_U16(bColor);
     }
 }
+
 /*
  *
  *
@@ -307,7 +301,7 @@ void DisplayDesk(void)
       xe=j*60+15*j+15+60;
       ye=80+i*50+10*i+50;
 
-      displayNums(xs+26,ys+17,nums[i*3+j]);
+      displayNums(xs+26,ys+17,i*3+j);
 //      LCD_Full(xs,xe,ys,ye,White);
 //      LCD_PutString(xs+26,ys+17,Tab[i*3+j],Black,White);  //按钮值显示
     }

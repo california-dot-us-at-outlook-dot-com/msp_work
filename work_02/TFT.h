@@ -67,5 +67,16 @@ void TFT_Initial();
 void displayNums(unsigned int ,unsigned int,unsigned char);
 void clearNums(unsigned int ,unsigned int,unsigned char);
 
+//颜色代码，TFT显示用
+#define White          0xFFFF                                                               //显示颜色代码
+#define Black          0x0000
+#define Blue           0x001F
+#define Blue2          0x051F
+#define Red            0xF800
+#define Magenta        0xF81F
+#define Green          0x07E0
+#define Cyan           0x7FFF
+#define Yellow         0xFFE0
+
 
 #endif /* TFT_H_ */

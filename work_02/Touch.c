@@ -15,6 +15,7 @@
 //#define unsigned int ;
 #include<msp430.h>
 #include"Touch.h"
+#include"GUI.h"
 //#include"Config.h"
 struct struct1 coordinate;      //定义一个名为Tp_pix的结构变量,用于存放触摸点采样结果
 
@@ -151,7 +152,26 @@ unsigned char Getpix() //取采样值，此处使用软件滤波，2次取样的值相差太大的视为噪
 }
 
 
+/*
+ *
+ *
+ *
+ * 按键高亮
+ */
+/*
+void GUIsquare2pix(unsigned int x0,unsigned int y0,unsigned int x1,unsigned int y1,unsigned int full_colour)
+{
+    unsigned int i,j;
 
+    for(i=0;i<2;i++)
+            {
+                GUIline(x0+i,y0,x0+i,y1,full_colour);
+                GUIline(x0,y0+i,x1,y0+i,full_colour);
+                GUIline(x0,y1-i,x1,y1-i,full_colour);
+                GUIline(x1-i,y0,x1-i,y1,full_colour);
+            }
+}
+*/
 
 /*
  *
@@ -172,12 +192,12 @@ void Detect_TP(void)
     if((LCD_Y>=ys(0)) &&(LCD_Y<=ye(0)))  //依据公式，ys和ye，纵坐标起点和终点
     {
       Button_11=1;
-      //GUIsquare2pix(xs(0),ys(0),xe(0),ye(0),Red);
+      GUIsquare2pix(xs(0),ys(0),xe(0),ye(0),Red);
       delay_ms(1);
       delay_ms(1);
       delay_ms(1);
       while(PEN==0);
-      //GUIsquare2pix(xs(0),ys(0),xe(0),ye(0),Red);
+      GUIsquare2pix(xs(0),ys(0),xe(0),ye(0),Black);
     }
 
         else if((LCD_Y>=ys(1)) &&(LCD_Y<=ye(1)))
@@ -186,7 +206,7 @@ void Detect_TP(void)
 
           Button_21=1;
 
-          //GUIsquare2pix(xs(0),ys(1),xe(0),ye(1),Red);
+          GUIsquare2pix(xs(0),ys(1),xe(0),ye(1),Red);
 
           delay_ms(1);
 
@@ -196,7 +216,7 @@ void Detect_TP(void)
 
           while(PEN==0);
 
-          //GUIsquare2pix(xs(0),ys(1),xe(0),ye(1),Red);
+          GUIsquare2pix(xs(0),ys(1),xe(0),ye(1),Black);
 
         }
 
@@ -206,7 +226,7 @@ void Detect_TP(void)
 
           Button_31=1;
 
-          //GUIsquare2pix(xs(0),ys(2),xe(0),ye(2),Red);
+          GUIsquare2pix(xs(0),ys(2),xe(0),ye(2),Red);
 
           delay_ms(1);
 
@@ -216,7 +236,7 @@ void Detect_TP(void)
 
           while(PEN==0);
 
-          //GUIsquare2pix(xs(0),ys(2),xe(0),ye(2),Red);
+          GUIsquare2pix(xs(0),ys(2),xe(0),ye(2),Black);
 
         }
 
@@ -226,7 +246,7 @@ void Detect_TP(void)
 
           Button_41=1;
 
-          //GUIsquare2pix(xs(0),ys(3),xe(0),ye(3),Red);
+          GUIsquare2pix(xs(0),ys(3),xe(0),ye(3),Red);
 
           delay_ms(1);
 
@@ -236,7 +256,7 @@ void Detect_TP(void)
 
           while(PEN==0);
 
-          //GUIsquare2pix(xs(0),ys(3),xe(0),ye(3),Red);
+          GUIsquare2pix(xs(0),ys(3),xe(0),ye(3),Black);
 
         }
 
@@ -252,7 +272,7 @@ void Detect_TP(void)
 
             Button_12=1;
 
-            //GUIsquare2pix(xs(1),ys(0),xe(1),ye(0),Red);
+            GUIsquare2pix(xs(1),ys(0),xe(1),ye(0),Red);
 
             delay_ms(1);
 
@@ -262,7 +282,7 @@ void Detect_TP(void)
 
             while(PEN==0);
 
-            //GUIsquare2pix(xs(1),ys(0),xe(1),ye(0),Red);
+            GUIsquare2pix(xs(1),ys(0),xe(1),ye(0),Black);
 
           }
 
@@ -273,7 +293,7 @@ void Detect_TP(void)
 
             Button_22=1;
 
-            //GUIsquare2pix(xs(1),ys(1),xe(1),ye(1),Red);
+            GUIsquare2pix(xs(1),ys(1),xe(1),ye(1),Red);
 
             delay_ms(1);
 
@@ -283,7 +303,7 @@ void Detect_TP(void)
 
             while(PEN==0);
 
-            //GUIsquare2pix(xs(1),ys(1),xe(1),ye(1),Red);
+            GUIsquare2pix(xs(1),ys(1),xe(1),ye(1),Black);
 
           }
 
@@ -292,7 +312,7 @@ void Detect_TP(void)
           {
             Button_32=1;
 
-            //GUIsquare2pix(xs(1),ys(2),xe(1),ye(2),Red);
+            GUIsquare2pix(xs(1),ys(2),xe(1),ye(2),Red);
 
             delay_ms(1);
 
@@ -302,7 +322,7 @@ void Detect_TP(void)
 
             while(PEN==0);
 
-            //GUIsquare2pix(xs(1),ys(2),xe(1),ye(2),Red);
+            GUIsquare2pix(xs(1),ys(2),xe(1),ye(2),Black);
 
           }
           else if((LCD_Y>=ys(3)) &&(LCD_Y<=ye(3)))
@@ -310,7 +330,7 @@ void Detect_TP(void)
           {
             Button_42=1;
 
-            //GUIsquare2pix(xs(1),ys(3),xe(1),ye(3),Red);
+            GUIsquare2pix(xs(1),ys(3),xe(1),ye(3),Red);
 
             delay_ms(1);
 
@@ -320,7 +340,7 @@ void Detect_TP(void)
 
             while(PEN==0);
 
-            //GUIsquare2pix(xs(1),ys(3),xe(1),ye(3),Red);
+            GUIsquare2pix(xs(1),ys(3),xe(1),ye(3),Black);
 
           }
 
@@ -337,7 +357,7 @@ void Detect_TP(void)
 
           Button_13=1;
 
-          //GUIsquare2pix(xs(2),ys(0),xe(2),ye(0),Red);
+          GUIsquare2pix(xs(2),ys(0),xe(2),ye(0),Red);
 
           delay_ms(1);
 
@@ -347,7 +367,7 @@ void Detect_TP(void)
 
           while(PEN==0);
 
-          //GUIsquare2pix(xs(2),ys(0),xe(2),ye(0),Red);
+          GUIsquare2pix(xs(2),ys(0),xe(2),ye(0),Black);
 
         }
 
@@ -357,7 +377,7 @@ void Detect_TP(void)
 
           Button_23=1;
 
-          //GUIsquare2pix(xs(2),ys(1),xe(2),ye(1),Red);
+          GUIsquare2pix(xs(2),ys(1),xe(2),ye(1),Red);
 
           delay_ms(1);
 
@@ -367,7 +387,7 @@ void Detect_TP(void)
 
           while(PEN==0);
 
-          //GUIsquare2pix(xs(2),ys(1),xe(2),ye(1),Red);
+          GUIsquare2pix(xs(2),ys(1),xe(2),ye(1),Black);
 
         }
 
@@ -377,7 +397,7 @@ void Detect_TP(void)
 
           Button_33=1;
 
-          //GUIsquare2pix(xs(2),ys(2),xe(2),ye(2),Red);
+          GUIsquare2pix(xs(2),ys(2),xe(2),ye(2),Red);
 
           delay_ms(1);
 
@@ -387,7 +407,7 @@ void Detect_TP(void)
 
           while(PEN==0);
 
-          //GUIsquare2pix(xs(2),ys(2),xe(2),ye(2),Red);
+          GUIsquare2pix(xs(2),ys(2),xe(2),ye(2),Black);
 
         }
         else if((LCD_Y>=ys(3)) &&(LCD_Y<=ye(3)))
@@ -396,7 +416,7 @@ void Detect_TP(void)
 
           Button_43=1;
 
-          //GUIsquare2pix(xs(2),ys(3),xe(2),ye(3),Red);
+          GUIsquare2pix(xs(2),ys(3),xe(2),ye(3),Red);
 
           delay_ms(1);
 
@@ -406,7 +426,7 @@ void Detect_TP(void)
 
           while(PEN==0);
 
-          //GUIsquare2pix(xs(2),ys(3),xe(2),ye(3),Red);
+          GUIsquare2pix(xs(2),ys(3),xe(2),ye(3),Black);
 
         }
 
