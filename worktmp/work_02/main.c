@@ -56,87 +56,100 @@ unsigned char startAngle[11];
 unsigned char endAngle[11];
 unsigned char type[11];
 unsigned char deep[11];
-unsigned char X[11];//向前还是向后
+unsigned char X_s[11];//向前还是向后
+unsigned char X_e[11];
 
 unsigned char tmpStartAngle;
 unsigned char tmpEndAngle;
 unsigned char tmpType;
 unsigned char tmpDeep;
-unsigned char tmpX;
+unsigned char tmpX_s;
+unsigned char tmpX_e;
 
 void Init_Data(){
     startAngle[0]=0;
     endAngle[0]=0;
     type[0]=0;
     deep[0]=0;
-    X[0]=0;
+    X_s[0]=0;
+    X_e[0]=0;
 
     startAngle[1]=45;
     endAngle[1]=0;
     type[1]=0;
     deep[1]=0;
-    X[1]=21;
+    X_s[1]=21;
+    X_e[1]=0;
 
     startAngle[2]=0;
     endAngle[2]=0;
     type[2]=0;
     deep[2]=0;
-    X[2]=0;
+    X_s[2]=0;
+    X_e[2]=0;
 
     startAngle[3]=0;
     endAngle[3]=0;
     type[3]=0;
     deep[3]=0;
-    X[3]=0;
+    X_s[3]=0;
+    X_e[3]=0;
 
     startAngle[4]=0;
     endAngle[4]=0;
     type[4]=0;
     deep[4]=0;
-    X[4]=0;
+    X_s[4]=0;
+    X_e[4]=0;
 
     startAngle[5]=0;
     endAngle[5]=0;
     type[5]=0;
     deep[5]=0;
-    X[5]=0;
+    X_s[5]=0;
+    X_e[5]=0;
 
     startAngle[6]=0;
     endAngle[6]=0;
     type[6]=0;
     deep[6]=0;
-    X[6]=0;
+    X_s[6]=0;
+    X_e[6]=0;
 
     startAngle[7]=0;
     endAngle[7]=0;
     type[7]=0;
     deep[7]=0;
-    X[7]=0;
+    X_s[7]=0;
+    X_e[7]=0;
 
     startAngle[8]=0;
     endAngle[8]=0;
     type[8]=0;
     deep[8]=0;
-    X[8]=0;
+    X_s[8]=0;
+    X_e[8]=0;
 
     startAngle[9]=0;
     endAngle[9]=0;
     type[9]=0;
     deep[9]=0;
-    X[9]=0;
+    X_s[9]=0;
+    X_e[9]=0;
 
     startAngle[10]=0;
     endAngle[10]=0;
     type[10]=0;
     deep[10]=0;
-    X[10]=0;
-
+    X_s[10]=0;
+    X_e[10]=0;
+/*
     startAngle[11]=0;
     endAngle[11]=0;
     type[11]=0;
     deep[11]=0;
-    X[11]=0;
-
+    X_s[11]=0;
+*/
 }
 
 //判断距离，选择数据
@@ -149,7 +162,8 @@ void selectData(){
     tmpEndAngle=endAngle[i+j];
     tmpType=type[i+j];
     tmpDeep=deep[i+j];
-    tmpX=X[i+j];
+    tmpX_s=X_s[i+j];
+    tmpX_e=X_e[i+j];
 }
 
 
@@ -217,9 +231,19 @@ void findNum(){
         displayNums(10,0,18);
         displayNums(20,0,19);
         selectData();
-        displayNums(40,0,tmpX);
+        displayNums(40,0,tmpX_s);
         displayNums(50,0,tmpStartAngle/10);
         displayNums(60,0,tmpStartAngle%10);
+
+        displayNums(80,0,tmpX_e);
+        displayNums(90,0,tmpEndAngle/10);
+        displayNums(100,0,tmpEndAngle%10);
+
+        displayNums(120,0,tmpDeep/10);
+        displayNums(130,0,tmpDeep%10);
+
+        displayNums(150,0,tmpType);
+
 
 
         ready=1;
