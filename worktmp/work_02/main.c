@@ -3,7 +3,7 @@
 #include"Touch.h"
 #include"TFT.h"
 #include"GUI.h"
-#include"Tuoluoyi.h"
+#include"MPU6050.h"
 #include"interrupt.h"
 
 #pragma vector = PORT1_VECTOR
@@ -14,6 +14,13 @@ __interrupt void Port1_ISR(void){
 /**
  * main.c
  */
+
+unsigned char angle90[6]={
+                          0b01000001,0b11000001,
+                          0b00111111,0b10111110,
+                          0b00111100,0b10111001,
+
+};
 
     unsigned char pausedNums[8];
     unsigned char Distance=0;
@@ -40,6 +47,111 @@ void DistanceMatch(){
     delay_ms(1000);
     P3OUT |=(BIT0);
 }
+
+
+//预存数据
+//最远长度为6米，
+//数组长度为11，第一个为0cm,第二个为60cm，第三个为120cm。。。。
+unsigned char startAngle[11];
+unsigned char endAngle[11];
+unsigned char type[11];
+unsigned char deep[11];
+unsigned char X[11];//向前还是向后
+
+unsigned char tmpStartAngle;
+unsigned char tmpEndAngle;
+unsigned char tmpType;
+unsigned char tmpDeep;
+unsigned char tmpX;
+
+void Init_Data(){
+    startAngle[0]=0;
+    endAngle[0]=0;
+    type[0]=0;
+    deep[0]=0;
+    X[0]=0;
+
+    startAngle[1]=45;
+    endAngle[1]=0;
+    type[1]=0;
+    deep[1]=0;
+    X[1]=21;
+
+    startAngle[2]=0;
+    endAngle[2]=0;
+    type[2]=0;
+    deep[2]=0;
+    X[2]=0;
+
+    startAngle[3]=0;
+    endAngle[3]=0;
+    type[3]=0;
+    deep[3]=0;
+    X[3]=0;
+
+    startAngle[4]=0;
+    endAngle[4]=0;
+    type[4]=0;
+    deep[4]=0;
+    X[4]=0;
+
+    startAngle[5]=0;
+    endAngle[5]=0;
+    type[5]=0;
+    deep[5]=0;
+    X[5]=0;
+
+    startAngle[6]=0;
+    endAngle[6]=0;
+    type[6]=0;
+    deep[6]=0;
+    X[6]=0;
+
+    startAngle[7]=0;
+    endAngle[7]=0;
+    type[7]=0;
+    deep[7]=0;
+    X[7]=0;
+
+    startAngle[8]=0;
+    endAngle[8]=0;
+    type[8]=0;
+    deep[8]=0;
+    X[8]=0;
+
+    startAngle[9]=0;
+    endAngle[9]=0;
+    type[9]=0;
+    deep[9]=0;
+    X[9]=0;
+
+    startAngle[10]=0;
+    endAngle[10]=0;
+    type[10]=0;
+    deep[10]=0;
+    X[10]=0;
+
+    startAngle[11]=0;
+    endAngle[11]=0;
+    type[11]=0;
+    deep[11]=0;
+    X[11]=0;
+
+}
+
+//判断距离，选择数据
+void selectData(){
+    unsigned char i,j;
+    i=Distance/6;//Distance 单位为分米
+    j=(Distance%6)/3;
+    //j=if(j);
+    tmpStartAngle=startAngle[i+j];
+    tmpEndAngle=endAngle[i+j];
+    tmpType=type[i+j];
+    tmpDeep=deep[i+j];
+    tmpX=X[i+j];
+}
+
 
 void findNum(){
     ifPaused=1;
@@ -92,9 +204,7 @@ void findNum(){
             displayNums(10+curX*10,30,16);
         }
         curX=0;
-    }
-    /*
-    else if(Button_43 && (!ready)){//V
+    }else if(Button_43 && (!ready)){//V
         tmpNum=11;
         Button_43=0;
         ifPaused=0;
@@ -106,11 +216,17 @@ void findNum(){
 
         displayNums(10,0,18);
         displayNums(20,0,19);
+        selectData();
+        displayNums(40,0,tmpX);
+        displayNums(50,0,tmpStartAngle/10);
+        displayNums(60,0,tmpStartAngle%10);
+
+
         ready=1;
 //        Distance=0;
     }
-    */
-    else if(Button_43){//V
+
+    else if(Button_43 && ready){//V
         DistanceMatch();
         displayNums(10,0,16);
         displayNums(20,0,16);
@@ -118,6 +234,10 @@ void findNum(){
         ready=0;
         Distance=0;
         ifPaused=0;
+        displayNums(40,0,16);
+        displayNums(50,0,16);
+        displayNums(60,0,16);
+
         for(curX=0;curX<16;curX++){
             displayNums(10+curX*10,30,16);
         }
@@ -132,6 +252,7 @@ void findNum(){
 
 
 
+
 int main(void)
 {
 	WDTCTL = WDTPW | WDTHOLD;	// stop watchdog timer
@@ -141,14 +262,26 @@ int main(void)
 //	P6OUT=abs(3);
 
 	Clock_Init();
+
+	//i2c_init();
+	MPU6050_Init(0xd0);
+
+
 	P3DIR |= BIT0;
 	P3OUT |= BIT0;
-	UART_Init();                        //串口设置初始化
+//	UART_Init();                        //串口设置初始化
 	interrupt_init(1,0b00000011,0b00000011);//P1.0  P1.1  下降沿
 	_EINT();
 	start_7843();//触摸屏
 	TFT_Initial();//TFT初始化
 	DisplayDesk();
+
+
+    unsigned char i,j,k;
+    unsigned char rx=0,ry=0,rz=0;
+
+    Init_Data();
+
 	while(1){
 	    Detect_TP();
 	    findNum();
@@ -160,6 +293,47 @@ int main(void)
 	    }
 
 
+
+        i=(readMpu16(XAH)>>8);
+        j=(readMpu16(YAH)>>8);
+        //k=(readMpu16(ZAH)>>8);
+        if(i&0x80){
+            rx=((255-i)*90/(255-angle90[1]));
+            i=20;
+        }else{
+            rx=i*90/angle90[0];
+            i=21;
+        }
+        if(j&0x80){
+            ry=((255-j)*90/(255-angle90[3]));
+            j=20;
+        }else{
+            ry=j*90/angle90[2];
+            j=21;
+        }
+        /*
+        if(k&0x80){
+            rz=((255-k)*90/(255-angle90[5]));
+            k='<';
+        }else{
+            rz=k*90/angle90[4];
+            k='>';
+        }
+*/
+
+        //displayNums(100,45,);
+        //displayNums(110,45,rx/10);
+        //displayNums(120,45,rx%10);
+
+        displayNums(130,45,i);
+        displayNums(140,45,ry/10);
+        displayNums(150,45,ry%10);
+
+
+        //displayNums(170,45,rz/10);
+        //displayNums(180,45,rz%10);
+
+/*
 	    DecodeIMUData();           //数据转换
 
 //显示陀螺仪的数字
@@ -190,6 +364,9 @@ int main(void)
         displayNums(200,45,temp/100%10);
         displayNums(210,45,temp/10%10);
         displayNums(220,45,temp%10);
+	*/
+
+
 	}
 	return 0;
 }

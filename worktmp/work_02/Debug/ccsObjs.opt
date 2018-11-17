@@ -1,0 +1,1 @@
+"./GUI.obj" "./I2C_reg.obj" "./MPU6050.obj" "./TFT.obj" "./Touch.obj" "./interrupt.obj" "./main.obj" "./timeConfig.obj" "../lnk_msp430f169.cmd" -llibc.a 
