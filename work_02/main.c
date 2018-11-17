@@ -21,6 +21,7 @@ __interrupt void Port1_ISR(void){
     unsigned char ifPaused=1;
     unsigned char tmpNum=0;
     unsigned char ready=0;
+    unsigned char suitAngle=0;
 
 
 unsigned long pow10(unsigned char pow){
@@ -33,6 +34,7 @@ unsigned long pow10(unsigned char pow){
 }
 
 void DistanceMatch(){
+
     P6OUT=~P6OUT;
     P2OUT |= BIT0;
     delay_ms(100);
@@ -150,6 +152,19 @@ int main(void)
 	    }
 
 	    DecodeIMUData();           //Êý¾Ý×ª»»
+	    displayNums(100,45,(int)Angle[0]/100);
+        displayNums(110,45,((int)Angle[0]%100)/10);
+        displayNums(120,45,(int)Angle[0]%10);
+
+
+        displayNums(140,45,(int)Angle[1]/100);
+        displayNums(150,45,((int)Angle[1]%100)/10);
+        displayNums(160,45,(int)Angle[1]%10);
+
+
+        displayNums(180,45,(int)Angle[2]/100);
+        displayNums(190,45,((int)Angle[2]%100)/10);
+        displayNums(200,45,(int)Angle[2]%10);
 	}
 	return 0;
 }
