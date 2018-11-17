@@ -8,7 +8,7 @@
 
 #pragma vector = PORT1_VECTOR
 __interrupt void Port1_ISR(void){
-    P6OUT=~P6OUT;
+    P3OUT |=(BIT0);
     P1IFG &= 0;
 }
 /**
@@ -36,9 +36,9 @@ unsigned long pow10(unsigned char pow){
 void DistanceMatch(){
 
     P6OUT=~P6OUT;
-    P2OUT |= BIT0;
-    delay_ms(100);
-    P2OUT &=(~BIT0);
+    P3OUT &= (~BIT0);
+    delay_ms(1000);
+    P3OUT |=(BIT0);
 }
 
 void findNum(){
@@ -102,11 +102,14 @@ void findNum(){
         }
         P6OUT=Distance;
 
-
+        displayNums(10,0,18);
+        displayNums(20,0,19);
         ready=1;
 //        Distance=0;
     }else if(Button_43 && ready){//V
         DistanceMatch();
+        displayNums(10,0,16);
+        displayNums(20,0,16);
         Button_43=0;
         ready=0;
         Distance=0;
@@ -134,7 +137,8 @@ int main(void)
 //	P6OUT=abs(3);
 
 	Clock_Init();
-
+	P3DIR |= BIT0;
+	P3OUT |= BIT0;
 	UART_Init();                        //串口设置初始化
 	interrupt_init(1,0b00000011,0b00000011);//P1.0  P1.1  下降沿
 	_EINT();
@@ -151,20 +155,37 @@ int main(void)
 
 	    }
 
+
 	    DecodeIMUData();           //数据转换
-	    displayNums(100,45,(int)Angle[0]/100);
-        displayNums(110,45,((int)Angle[0]%100)/10);
-        displayNums(120,45,(int)Angle[0]%10);
 
+//显示陀螺仪的数字
+	    int temp=(int)Angle[0];
+	    if(temp<0){
+	        temp=-temp;
+	        displayNums(90,45,17);
+	    }
+	    displayNums(100,45,temp/100%10);
+        displayNums(110,45,temp/10%10);
+        displayNums(120,45,temp%10);
 
-        displayNums(140,45,(int)Angle[1]/100);
-        displayNums(150,45,((int)Angle[1]%100)/10);
-        displayNums(160,45,(int)Angle[1]%10);
+        temp=(int)Angle[1];
+        if(temp>0){
+                    temp=-temp;
+                    displayNums(140,45,17);
+        }
+        displayNums(150,45,temp/100%10);
+        displayNums(160,45,temp/10%10);
+        displayNums(170,45,temp%10);
 
+        temp=(int)Angle[2];
+        if(temp>0){
+                    temp=-temp;
+                    displayNums(190,45,17);
+        }
 
-        displayNums(180,45,(int)Angle[2]/100);
-        displayNums(190,45,((int)Angle[2]%100)/10);
-        displayNums(200,45,(int)Angle[2]%10);
+        displayNums(200,45,temp/100%10);
+        displayNums(210,45,temp/10%10);
+        displayNums(220,45,temp%10);
 	}
 	return 0;
 }
